@@ -1,0 +1,30 @@
+---
+spec:
+  inputs:
+    docker_image:
+      default: "registry.gitlab.com/pl.rachuna-net/containers/python:1.0.0"
+      description: "The docker image to use for the job"
+---
+variables:
+  CONTAINER_IMAGE_PYTHON: $[[ inputs.docker_image ]]
+
+
+include:
+  - local: /source/input_parameters.yml
+  - local: /source/logo.yml
+
+
+.terraform:validate:base:
+  image: $CONTAINER_IMAGE_PYTHON
+  before_script:
+    - git config --global --add safe.directory ${CI_PROJECT_DIR}
+    - !reference [.logo]
+
+
+🔍 input parameters:
+  stage: prepare
+  extends: ['.terraform:validate:base']
+  script:
+    - !reference [.input-parameters]
+  rules:
+    - when: never
