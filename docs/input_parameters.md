@@ -54,7 +54,12 @@ Skrypt wypisuje dane w formie tabeli ASCII w logach pipeline’u, np.:
 
 ```yaml
 include:
-  component: registry.gitlab.com/your-group/gitlab-components/print-input-parameters
-  inputs:
-    docker_image: "registry.gitlab.com/your-group/containers/debug:latest"
+  - component: $CI_SERVER_FQDN/pl.rachuna-net/cicd/components/prepare/input_parameters@$COMPONENT_VERSION_PREPARE
+    inputs:
+      docker_image: $CONTAINER_IMAGE_PYTHON
+
+🔍 input parameters:
+  stage: prepare
+  rules:
+    - when: on_success
 ```
