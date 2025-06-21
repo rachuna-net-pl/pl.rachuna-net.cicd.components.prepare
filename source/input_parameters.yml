@@ -23,6 +23,7 @@
     print_input_parameters COMPONENT_VERSION_DEPLOY $COMPONENT_VERSION_DEPLOY
     print_input_parameters COMPONENT_VERSION_INTEGRATION_TEST $COMPONENT_VERSION_INTEGRATION_TEST
     echo -e "├──────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────┤"
+    print_input_parameters CONTAINER_IMAGE_MKDOCS $CONTAINER_IMAGE_MKDOCS
     print_input_parameters CONTAINER_IMAGE_PYTHON $CONTAINER_IMAGE_PYTHON
     print_input_parameters CONTAINER_IMAGE_SEMANTIC_RELEASE $CONTAINER_IMAGE_SEMANTIC_RELEASE
     print_input_parameters CONTAINER_IMAGE_SONAR_SCANNER $CONTAINER_IMAGE_SONAR_SCANNER
