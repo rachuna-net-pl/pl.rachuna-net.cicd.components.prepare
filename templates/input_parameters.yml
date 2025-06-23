@@ -14,7 +14,7 @@ include:
   - local: /source/logo.yml
 
 
-.terraform:validate:base:
+.input_parameters:validate:base:
   image: $CONTAINER_IMAGE_PYTHON
   before_script:
     - git config --global --add safe.directory ${CI_PROJECT_DIR}
@@ -23,7 +23,7 @@ include:
 
 🔍 input parameters:
   stage: prepare
-  extends: ['.terraform:validate:base']
+  extends: ['.input_parameters:validate:base']
   script:
     - !reference [.input-parameters]
   rules:
