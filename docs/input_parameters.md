@@ -34,10 +34,10 @@ Skrypt wypisuje dane w formie tabeli ASCII w logach pipeline’u, np.:
 ```
 ===> 💾 Print set inputs Variables
 ┌────────────────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
-| Variable                       | Value                                                                                               |
+│ Variable                       │ Value                                                                                               │
 ├────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-| CONTAINER_IMAGE_TERRAFORM      | registry.gitlab.com/pl.rachuna-net/containers/terraform:1.0.0                                       |
-| COMPONENT_VERSION_DEPLOY       | v1.2.3                                                                                              |
+│ CONTAINER_IMAGE_TERRAFORM      │ registry.gitlab.com/pl.rachuna-net/containers/terraform:1.0.0                                       │
+│ COMPONENT_VERSION_DEPLOY       │ v1.2.3                                                                                              │
 ...
 └────────────────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
