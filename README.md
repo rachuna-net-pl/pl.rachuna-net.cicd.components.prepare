@@ -1,16 +1,102 @@
-::include{file=.gitlab/badges.md}
-# ![](https://gitlab.com/pl.rachuna-net/infrastructure/terraform/iac-gitlab/-/raw/main/images/project/gitlab.png){height=20px} prepare
+# <img src=".gitlab/avatar.png" alt="avatar" height="20"/> prepare
+
+[![](https://gitlab.com/pl.rachuna-net/cicd/components/prepare/-/badges/release.svg)](https://gitlab.com/pl.rachuna-net/cicd/components/prepare/-/releases)
+[![](https://gitlab.com/pl.rachuna-net/cicd/components/prepare/badges/main/pipeline.svg)](https://gitlab.com/pl.rachuna-net/cicd/components/prepare/-/commits/main)
 
 Komponent do przygotowania procesu CI/CD.
 
-[[_TOC_]]
+---
+### 🧪 Przykład użycia
+
+```yaml
+include:
+  - component: $CI_SERVER_FQDN/pl.rachuna-net/cicd/components/prepare/input_parameters@$COMPONENT_VERSION_PREPARE
+    inputs:
+      docker_image: $CONTAINER_IMAGE_PYTHON
+
+  - component: $CI_SERVER_FQDN/pl.rachuna-net/cicd/components/prepare/conventional_commits@$COMPONENT_VERSION_PREPARE
+    inputs:
+      docker_image: $CONTAINER_IMAGE_PYTHON
+
+🔍 input parameters:
+  stage: prepare
+  rules:
+    - when: on_success
+
+🔍 Analize Conventional Commits:
+  stage: prepare
+  rules:
+    - when: on_success
+```
 
 ---
-### Input parameters
-::include{file=docs/input_parameters.md}
+## Input Parameters
+### ⚙️ Parametry wejściowe (`inputs`)
 
-::include{file=docs/main.md}
-::include{file=.gitlab/contributions.md}
-::include{file=.gitlab/license.md}
-::include{file=.gitlab/authors.md}
+| Nazwa          | Typ    | Domyślna wartość                                             | Opis                                              |
+| -------------- | ------ | ------------------------------------------------------------ | ------------------------------------------------- |
+| `docker_image` | string | `registry.gitlab.com/pl.rachuna-net/containers/python:2.0.0` | Obraz Dockera z interpreterem Pythona lub shellem |
+
+---
+### 🧬 Zmienne środowiskowe obsługiwane przez skrypt
+
+Komponent wypisuje wartości m.in. następujących zmiennych:
+
+* `GITLAB_CI_VERSION`
+* `COMPONENT_VERSION_BUILD`
+* `COMPONENT_VERSION_DEPLOY`
+* `COMPONENT_VERSION_INTEGRATION_TEST`
+* `COMPONENT_VERSION_PUBLISH`
+* `COMPONENT_VERSION_PREPARE`
+* `COMPONENT_VERSION_RELEASE`
+* `COMPONENT_VERSION_SAST`
+* `COMPONENT_VERSION_UNIT_TEST`
+* `COMPONENT_VERSION_VALIDATE`
+* `CONTAINER_IMAGE_PYTHON`
+* `CONTAINER_IMAGE_SEMANTIC_RELEASE`
+* `CONTAINER_IMAGE_SONAR_SCANNER`
+* `CONTAINER_IMAGE_TERRAFORM`
+* `CONTAINER_IMAGE_VAULT`
+* `VAULT_ADDR`
+
+---
+### 📤 Output
+
+Skrypt wypisuje dane w formie tabeli ASCII w logach pipeline’u, np.:
+
+```
+===> 💾 Print set inputs Variables
+┌────────────────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Variable                       │ Value                                                                                               │
+├────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ CONTAINER_IMAGE_TERRAFORM      │ registry.gitlab.com/pl.rachuna-net/containers/terraform:1.0.0                                       │
+│ COMPONENT_VERSION_DEPLOY       │ v1.2.3                                                                                              │
+...
+└────────────────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+### 🛠 Job: `🔍 input parameters`
+
+* Etap: `prepare`
+* Uruchamia funkcję `print_input_parameters`, która drukuje wartości
+* **Nie uruchamia się automatycznie** (`rules: when: never`)
+
+## Sprawdzanie convensional commits
+
+Komponent sprawdza, czy czyta wszystkie informacje o commitach zgodnie z standardem [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+
+---
+## Contributions
+Jeśli masz pomysły na ulepszenia, zgłoś problemy, rozwidl repozytorium lub utwórz Merge Request. Wszystkie wkłady są mile widziane!
+[Contributions](CONTRIBUTING.md)
+
+---
+## License
+Projekt licencjonowany jest na warunkach [Licencji MIT](LICENSE).
+
+---
+# Author Information
+### &emsp; Maciej Rachuna
+# <img src="https://gitlab.com/pl.rachuna-net/gitlab-profile/-/raw/main/assets/logo/website_logo_transparent_background.png" alt="rachuna-net.pl" height="100"/>
 

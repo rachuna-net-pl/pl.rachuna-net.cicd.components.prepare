@@ -4,13 +4,14 @@ spec:
     docker_image:
       default: "registry.gitlab.com/pl.rachuna-net/containers/python:1.0.0"
       description: "The docker image to use for the job"
+
 ---
 variables:
   CONTAINER_IMAGE_PYTHON: $[[ inputs.docker_image ]]
 
 
 include:
-  - local: /source/input_parameters.yml
+  - local: /source/parameters_input_variables.yml
   - local: /source/logo.yml
 
 
@@ -19,12 +20,13 @@ include:
   before_script:
     - git config --global --add safe.directory ${CI_PROJECT_DIR}
     - !reference [.logo]
+    - !reference [.function_print_row]
 
 
-🔍 input parameters:
+🔍 Input Parameters:
   stage: prepare
   extends: ['.input_parameters:validate:base']
   script:
-    - !reference [.input-parameters]
+    - !reference [.parameters_input_variables]
   rules:
     - when: never
