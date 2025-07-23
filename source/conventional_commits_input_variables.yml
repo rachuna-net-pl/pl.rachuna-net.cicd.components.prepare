@@ -11,5 +11,5 @@
     print_row_parameters COMPONENT_VERSION_PREPARE $COMPONENT_VERSION_PREPARE
     echo -e "├──────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────┤"
     print_row_parameters CONTAINER_IMAGE_PYTHON $CONTAINER_IMAGE_PYTHON
-    print_row_parameters CONVENTIONAL_COMMITS_REGEXP $CONVENTIONAL_COMMITS_REGEXP
+    print_row_parameters CONVENTIONAL_COMMITS_REGEXP "$CONVENTIONAL_COMMITS_REGEXP"
     echo -e "└──────────────────────────────────────────┴────────────────────────────────────────────────────────────────────────────────────────────┘"

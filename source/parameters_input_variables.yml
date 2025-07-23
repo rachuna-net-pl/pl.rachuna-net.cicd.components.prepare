@@ -1,37 +1,34 @@
 ---
-.input-parameters:
+.parameters_input_variables:
   - |
-    print_input_parameters() {
-      if [ -n "$2" ]; then
-        printf "│ %-40s │ %-90s │\n" "$1" "$2"
-      fi
-    }
     echo ""
+
     echo -e "\033[1;33m===>\033[0m 💾 Print set inputs Variables"
     echo -e "┌──────────────────────────────────────────┬────────────────────────────────────────────────────────────────────────────────────────────┐"
     printf "| %-40s | %-90s |\n" "Variable" "Value"
     echo -e "├──────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────┤"
-    print_input_parameters GITLAB_CI_VERSION $GITLAB_CI_VERSION
+    print_row_parameters GITLAB_CI_VERSION $GITLAB_CI_VERSION
     echo -e "├──────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────┤"
-    print_input_parameters COMPONENT_VERSION_PREPARE $COMPONENT_VERSION_PREPARE
-    print_input_parameters COMPONENT_VERSION_VALIDATE $COMPONENT_VERSION_VALIDATE
-    print_input_parameters COMPONENT_VERSION_UNIT_TEST $COMPONENT_VERSION_UNIT_TEST
-    print_input_parameters COMPONENT_VERSION_SAST $COMPONENT_VERSION_SAST
-    print_input_parameters COMPONENT_VERSION_BUILD $COMPONENT_VERSION_BUILD
-    print_input_parameters COMPONENT_VERSION_PUBLISH $COMPONENT_VERSION_PUBLISH
-    print_input_parameters COMPONENT_VERSION_RELEASE $COMPONENT_VERSION_RELEASE
-    print_input_parameters COMPONENT_VERSION_DEPLOY $COMPONENT_VERSION_DEPLOY
-    print_input_parameters COMPONENT_VERSION_INTEGRATION_TEST $COMPONENT_VERSION_INTEGRATION_TEST
+    print_row_parameters COMPONENT_VERSION_PREPARE $COMPONENT_VERSION_PREPARE
+    print_row_parameters COMPONENT_VERSION_VALIDATE $COMPONENT_VERSION_VALIDATE
+    print_row_parameters COMPONENT_VERSION_UNIT_TEST $COMPONENT_VERSION_UNIT_TEST
+    print_row_parameters COMPONENT_VERSION_SAST $COMPONENT_VERSION_SAST
+    print_row_parameters COMPONENT_VERSION_BUILD $COMPONENT_VERSION_BUILD
+    print_row_parameters COMPONENT_VERSION_PUBLISH $COMPONENT_VERSION_PUBLISH
+    print_row_parameters COMPONENT_VERSION_RELEASE $COMPONENT_VERSION_RELEASE
+    print_row_parameters COMPONENT_VERSION_DEPLOY $COMPONENT_VERSION_DEPLOY
+    print_row_parameters COMPONENT_VERSION_INTEGRATION_TEST $COMPONENT_VERSION_INTEGRATION_TEST
     echo -e "├──────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────┤"
-    print_input_parameters CONTAINER_IMAGE_ANSIBLE $CONTAINER_IMAGE_ANSIBLE
-    print_input_parameters CONTAINER_IMAGE_MKDOCS $CONTAINER_IMAGE_MKDOCS
-    print_input_parameters CONTAINER_IMAGE_PACKER $CONTAINER_IMAGE_PACKER
-    print_input_parameters CONTAINER_IMAGE_PYTHON $CONTAINER_IMAGE_PYTHON
-    print_input_parameters CONTAINER_IMAGE_SEMANTIC_RELEASE $CONTAINER_IMAGE_SEMANTIC_RELEASE
-    print_input_parameters CONTAINER_IMAGE_SONAR_SCANNER $CONTAINER_IMAGE_SONAR_SCANNER
-    print_input_parameters CONTAINER_IMAGE_TERRAFORM $CONTAINER_IMAGE_TERRAFORM
-    print_input_parameters CONTAINER_IMAGE_VAULT $CONTAINER_IMAGE_VAULT
+    print_row_parameters CONTAINER_IMAGE_ANSIBLE $CONTAINER_IMAGE_ANSIBLE
+    print_row_parameters CONTAINER_IMAGE_BUILDAH $CONTAINER_IMAGE_BUILDAH
+    print_row_parameters CONTAINER_IMAGE_MKDOCS $CONTAINER_IMAGE_MKDOCS
+    print_row_parameters CONTAINER_IMAGE_PACKER $CONTAINER_IMAGE_PACKER
+    print_row_parameters CONTAINER_IMAGE_PYTHON $CONTAINER_IMAGE_PYTHON
+    print_row_parameters CONTAINER_IMAGE_SEMANTIC_RELEASE $CONTAINER_IMAGE_SEMANTIC_RELEASE
+    print_row_parameters CONTAINER_IMAGE_SONAR_SCANNER $CONTAINER_IMAGE_SONAR_SCANNER
+    print_row_parameters CONTAINER_IMAGE_TERRAFORM $CONTAINER_IMAGE_TERRAFORM
+    print_row_parameters CONTAINER_IMAGE_VAULT $CONTAINER_IMAGE_VAULT
     echo -e "├──────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────┤"
-    print_input_parameters VAULT_ADDR $VAULT_ADDR
-    print_input_parameters SONAR_HOST_URL $SONAR_HOST_URL
+    print_row_parameters VAULT_ADDR $VAULT_ADDR
+    print_row_parameters SONAR_HOST_URL $SONAR_HOST_URL
     echo -e "└──────────────────────────────────────────┴────────────────────────────────────────────────────────────────────────────────────────────┘"
