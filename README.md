@@ -1,16 +1,28 @@
-::include{file=.gitlab/badges.md}
-# ![](https://gitlab.com/pl.rachuna-net/infrastructure/terraform/iac-gitlab/-/raw/main/images/project/gitlab.png){height=20px} prepare
+# <img src=".gitlab/avatar.png" alt="avatar" height="20"/> prepare
+
+[![](https://gitlab.com/pl.rachuna-net/cicd/components/prepare/-/badges/release.svg)](https://gitlab.com/pl.rachuna-net/cicd/components/prepare/-/releases)
+[![](https://gitlab.com/pl.rachuna-net/cicd/components/prepare/badges/main/pipeline.svg)](https://gitlab.com/pl.rachuna-net/cicd/components/prepare/-/commits/main)
+
 
 Komponent do przygotowania procesu CI/CD.
 
-[[_TOC_]]
+---
+#### Sprawdzanie convensional commits
+
+Komponent sprawdza, czy czyta wszystkie informacje o commitach zgodnie z standardem [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+
 
 ---
-### Input parameters
-::include{file=docs/input_parameters.md}
+## Contributions
+Jeśli masz pomysły na ulepszenia, zgłoś problemy, rozwidl repozytorium lub utwórz Merge Request. Wszystkie wkłady są mile widziane!
+[Contributions](CONTRIBUTING.md)
 
-::include{file=docs/main.md}
-::include{file=.gitlab/contributions.md}
-::include{file=.gitlab/license.md}
-::include{file=.gitlab/authors.md}
+---
+## License
+Projekt licencjonowany jest na warunkach [Licencji MIT](LICENSE).
+
+---
+# Author Information
+### &emsp; Maciej Rachuna
+# <img src="https://gitlab.com/pl.rachuna-net/gitlab-profile/-/raw/main/assets/logo/website_logo_transparent_background.png" alt="rachuna-net.pl" height="100"/>
 

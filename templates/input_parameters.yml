@@ -4,6 +4,7 @@ spec:
     docker_image:
       default: "registry.gitlab.com/pl.rachuna-net/containers/python:1.0.0"
       description: "The docker image to use for the job"
+
 ---
 variables:
   CONTAINER_IMAGE_PYTHON: $[[ inputs.docker_image ]]

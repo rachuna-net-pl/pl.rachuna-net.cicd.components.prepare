@@ -1,0 +1,50 @@
+---
+spec:
+  inputs:
+    docker_image:
+      default: "registry.gitlab.com/pl.rachuna-net/containers/python:1.0.0"
+      description: "The docker image to use for the job"
+    regexp:
+      default: '(feat|fix|chore|docs|style|refactor|perf|test)(\(.+\))?: .+'
+      description: >
+        Commit message musi być zgodny z konwencją Conventional Commits, np.:
+        "feat(login): dodano obsługę logowania" lub "fix: poprawiono literówkę".
+
+---
+variables:
+  CONTAINER_IMAGE_PYTHON: $[[ inputs.docker_image ]]
+  CONVENTIONAL_COMMITS_REGEXP: $[[ inputs.regexp ]]
+
+
+include:
+  - local: /source/conventional_commits_input_variables.yml
+  - local: /source/logo.yml
+
+
+.input_parameters:validate:base:
+  image: $CONTAINER_IMAGE_PYTHON
+  before_script:
+    - git config --global --add safe.directory ${CI_PROJECT_DIR}
+    - !reference [.logo]
+    - !reference [.function_print_row]
+    - !reference [.conventional_commits_input_variables]
+
+
+🔍 Analize Conventional Commits:
+  stage: prepare
+  extends: ['.input_parameters:validate:base']
+  script:
+    - |
+      echo ""
+      echo -e "\033[1;33m===>\033[0m 🔍 Analize Conventional commits"
+      git log origin/main..HEAD --pretty=format:"%s" | while read msg; do
+        echo "$msg" | grep -Eq "^(Merge|Revert)" && continue
+        echo "$msg" | grep -Eq "$CONVENTIONAL_COMMITS_REGEXP" || {
+          echo "❌ Invalid commit: $msg"
+          echo "Expected format matching: $CONVENTIONAL_COMMITS_REGEXP"
+          exit 1
+        }
+      done
+
+  rules:
+    - when: never
