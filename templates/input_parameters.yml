@@ -20,7 +20,7 @@ include:
   before_script:
     - git config --global --add safe.directory ${CI_PROJECT_DIR}
     - !reference [.logo]
-    - !reference [.function_print_row]
+    - !reference [.prepare:function_print_row]
 
 
 🔍 Input Parameters:
