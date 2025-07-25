@@ -16,7 +16,7 @@ include:
   - local: /source/parameters_input_variables.yml
 
 
-.input_parameters:validate:base:
+.prepare:input_parameters:validate:base:
   image: $CONTAINER_IMAGE_PYTHON
   before_script:
     - git config --global --add safe.directory ${CI_PROJECT_DIR}
@@ -28,6 +28,6 @@ include:
   stage: prepare
   extends: ['.input_parameters:validate:base']
   script:
-    - !reference [.parameters_input_variables]
+    - !reference [.prepare:parameters_input_variables]
   rules:
     - when: never
