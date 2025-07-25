@@ -1,5 +1,5 @@
 ---
-.parameters_input_variables:
+.prepare:parameters_input_variables:
   - |
     echo ""
 

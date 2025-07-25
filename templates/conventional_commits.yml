@@ -22,18 +22,18 @@ include:
   - local: /source/conventional_commits_input_variables.yml
 
 
-.conventional_commits:validate:base:
+.prepare:conventional_commits:validate:base:
   image: $CONTAINER_IMAGE_PYTHON
   before_script:
     - git config --global --add safe.directory ${CI_PROJECT_DIR}
     - !reference [.logo]
     - !reference [.prepare:function_print_row]
-    - !reference [.conventional_commits_input_variables]
+    - !reference [.prepare:conventional_commits_input_variables]
 
 
 🔍 Analyze Conventional Commits:
   stage: prepare
-  extends: ['.conventional_commits:validate:base']
+  extends: ['.prepare:conventional_commits:validate:base']
   script:
     - |
       echo ""

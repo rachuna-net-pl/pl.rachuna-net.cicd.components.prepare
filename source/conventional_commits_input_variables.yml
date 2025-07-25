@@ -1,5 +1,5 @@
 ---
-.conventional_commits_input_variables:
+.prepare:conventional_commits_input_variables:
   - |
     echo ""
 
