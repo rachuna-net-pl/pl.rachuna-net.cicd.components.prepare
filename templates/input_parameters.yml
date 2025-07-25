@@ -26,7 +26,7 @@ include:
 
 🔍 Input Parameters:
   stage: prepare
-  extends: ['.input_parameters:validate:base']
+  extends: ['.prepare:input_parameters:validate:base']
   script:
     - !reference [.prepare:parameters_input_variables]
   rules:
