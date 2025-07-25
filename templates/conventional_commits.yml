@@ -17,8 +17,9 @@ variables:
 
 
 include:
-  - local: /source/conventional_commits_input_variables.yml
   - local: /source/logo.yml
+  - local: /source/function_print_row.yml
+  - local: /source/conventional_commits_input_variables.yml
 
 
 .conventional_commits:validate:base:
