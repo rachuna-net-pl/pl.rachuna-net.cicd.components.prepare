@@ -5,7 +5,7 @@ spec:
       default: "registry.gitlab.com/pl.rachuna-net/containers/python:1.0.0"
       description: "The docker image to use for the job"
     regexp:
-      default: '^(build|chore|ci|docs|params|feat|fix|perf|refactor|style|test|revert|merge|release|hotfix|fixup|squash|wip|BREAKING CHANGE)(\([a-zA-Z0-9_-]+\))?!?:\s.+$'
+      default: '^(build|chore|ci|docs|params|feat|fix|perf|refactor|style|test|revert|merge|release|hotfix|fixup|squash|wip|BREAKING CHANGE)(\([a-zA-Z0-9_-]+\))?!?:\s.+'
       description: >
         Commit message musi być zgodny z konwencją Conventional Commits, np.:
         "feat(login): dodano obsługę logowania" lub "fix: poprawiono literówkę".
