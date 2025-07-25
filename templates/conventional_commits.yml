@@ -37,9 +37,12 @@ include:
     - |
       echo ""
       echo -e "\033[1;33m===>\033[0m 🔍 Analyze Conventional Commits"
-      COMMITS=$(git --no-pager log origin/$CI_DEFAULT_BRANCH..HEAD --pretty=format:"%s")
+      if [[ $CI_DEFAULT_BRANCH == $CI_COMMIT_BRANCH ]]; then
+        exit 0
+      fi
 
       IS_ERR="false"
+      COMMITS=$(git --no-pager log origin/$CI_DEFAULT_BRANCH..HEAD --pretty=format:"%s")
 
       while IFS= read -r msg; do
         echo "$msg" | grep -Eq "^(Merge|Revert)" && continue
