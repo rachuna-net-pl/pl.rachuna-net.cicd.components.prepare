@@ -5,7 +5,7 @@ spec:
       default: "registry.gitlab.com/pl.rachuna-net/containers/python:1.0.0"
       description: "The docker image to use for the job"
     regexp:
-      default: '^(build|chore|ci|docs|params|feat|fix|perf|refactor|style|test|revert|merge|release|hotfix|fixup|squash|wip|BREAKING CHANGE)(\\(.+\\))?!?: .+'
+      default: '^(build|chore|ci|docs|params|feat|fix|perf|refactor|style|test|revert|merge|release|hotfix|fixup|squash|wip|BREAKING CHANGE)(\([a-zA-Z0-9_-]+\))?!?:\s.+$'
       description: >
         Commit message musi być zgodny z konwencją Conventional Commits, np.:
         "feat(login): dodano obsługę logowania" lub "fix: poprawiono literówkę".
@@ -37,14 +37,21 @@ include:
     - |
       echo ""
       echo -e "\033[1;33m===>\033[0m 🔍 Analyze Conventional Commits"
-      git log origin/$CI_DEFAULT_BRANCH..HEAD --pretty=format:"%s" | while read msg; do
-        echo "$msg" | grep -Eq "^(Merge|Revert)" && continue
-        echo "$msg" | grep -Eq "$CONVENTIONAL_COMMITS_REGEXP" || {
-          echo "❌ Invalid commit: $msg"
-          echo "Niezgodność z Conventional Commits: $CONVENTIONAL_COMMITS_REGEXP"
-          exit 1
-        }
-      done
+      COMMITS=$(git --no-pager log origin/$CI_DEFAULT_BRANCH..HEAD --pretty=format:"%s")
 
+      IS_ERR="false"
+
+      while IFS= read -r msg; do
+        echo "$msg" | grep -Eq "^(Merge|Revert)" && continue
+        if ! echo "$msg" | grep -Eq "$CONVENTIONAL_COMMITS_REGEXP"; then
+          echo "❌ Niezgodność z Conventional Commits: $msg"
+          IS_ERR="true"
+        fi
+      done <<< "$COMMITS"
+
+      if [[ $IS_ERR == "true" ]]; then
+          exit 1
+      fi
+  allow_failure: true
   rules:
     - when: never
