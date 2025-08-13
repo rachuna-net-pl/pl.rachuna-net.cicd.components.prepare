@@ -1,0 +1,62 @@
+---
+spec:
+  inputs:
+    docker_image:
+      default: "registry.gitlab.com/pl.rachuna-net/containers/python:2.0.1"
+      description: "The docker image to use for the job"
+    logo_url:
+      default: https://gitlab.com/pl.rachuna-net/cicd/gitlab-ci/-/raw/main/_configs/_logo?ref_type=heads
+      description: "Set logo url"
+    regexp:
+      default: '^(build|chore|ci|docs|params|feat|fix|perf|refactor|style|test|revert|merge|release|hotfix|fixup|squash|wip|BREAKING CHANGE)(\([a-zA-Z0-9_-]+\))?!?:\s.+'
+      description: >
+        Commit message musi być zgodny z konwencją Conventional Commits, np.:
+        "feat(login): dodano obsługę logowania" lub "fix: poprawiono literówkę".
+
+---
+variables:
+  CONTAINER_IMAGE_PYTHON: $[[ inputs.docker_image ]]
+  LOGO_URL: $[[ inputs.logo_url ]]
+  CONVENTIONAL_COMMITS_REGEXP: $[[ inputs.regexp ]]
+  GIT_DEPTH: 0
+
+
+include:
+  - local: /source/prepare/_function_print_row.yml
+  - local: /source/prepare/conventional_commits_input_variables.yml
+
+
+🔍 Analyze Conventional Commits:
+  stage: prepare
+  image: $CONTAINER_IMAGE_PYTHON
+  before_script:
+    - |
+      git config --global --add safe.directory ${CI_PROJECT_DIR}
+      [ ! -z "${LOGO_URL}" ] && curl -s "${LOGO_URL}"
+    - !reference [.prepare:_function_print_row]
+    - !reference [.prepare:conventional_commits_input_variables]
+  script:
+    - |
+      echo ""
+      echo -e "\033[1;33m===>\033[0m 🔍 Analyze Conventional Commits"
+      if [[ $CI_DEFAULT_BRANCH == $CI_COMMIT_BRANCH ]]; then
+        exit 0
+      fi
+
+      IS_ERR="false"
+      COMMITS=$(git --no-pager log origin/$CI_DEFAULT_BRANCH..HEAD --pretty=format:"%s")
+
+      while IFS= read -r msg; do
+        echo "$msg" | grep -Eq "^(Merge|Revert)" && continue
+        if ! echo "$msg" | grep -Eq "$CONVENTIONAL_COMMITS_REGEXP"; then
+          echo "❌ Niezgodność z Conventional Commits: $msg"
+          IS_ERR="true"
+        fi
+      done <<< "$COMMITS"
+
+      if [[ $IS_ERR == "true" ]]; then
+          exit 1
+      fi
+  allow_failure: true
+  rules:
+    - when: on_success

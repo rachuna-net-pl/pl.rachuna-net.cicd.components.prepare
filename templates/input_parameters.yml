@@ -1,0 +1,33 @@
+---
+spec:
+  inputs:
+    docker_image:
+      default: "registry.gitlab.com/pl.rachuna-net/containers/python:2.0.1"
+      description: "Set contaiener image for the job"
+    logo_url:
+      default: https://gitlab.com/pl.rachuna-net/cicd/gitlab-ci/-/raw/main/_configs/_logo?ref_type=heads
+      description: "Set logo url"
+
+---
+variables:
+  CONTAINER_IMAGE_PYTHON: $[[ inputs.docker_image ]]
+  LOGO_URL: $[[ inputs.logo_url ]]
+
+
+include:
+  - local: /source/prepare/_function_print_row.yml
+  - local: /source/prepare/parameters_input_variables.yml
+
+
+🔍 Input Parameters:
+  stage: prepare
+  image: $CONTAINER_IMAGE_PYTHON
+  before_script:
+    - |
+      git config --global --add safe.directory ${CI_PROJECT_DIR}
+      [ ! -z "${LOGO_URL}" ] && curl -s "${LOGO_URL}"
+    - !reference [.prepare:_function_print_row]
+  script:
+    - !reference [.prepare:parameters_input_variables]
+  rules:
+    - when: on_success
